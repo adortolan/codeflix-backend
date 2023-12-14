@@ -31,4 +31,83 @@ describe("Category.entity Unit tests", () => {
     expect(category.is_active).toBeTruthy();
     expect(category.created_at).toBeInstanceOf(Date);
   });
+
+  it("should be use form create", () => {
+    const category = Category.create({
+      name: "Categ01",
+      description: "Description categ",
+      is_active: true,
+    });
+    expect(category).toMatchObject({
+      name: "Categ01",
+      description: "Description categ",
+      is_active: true,
+    });
+  });
+
+  it("should be change name", () => {
+    const category = Category.create({
+      name: "Categ01",
+      description: "Description categ",
+      is_active: true,
+    });
+
+    category.changeName("Categ03");
+
+    expect(category.name).toBe("Categ03");
+  });
+
+  it("should be change description", () => {
+    const category = Category.create({
+      name: "Categ01",
+      description: "Description categ",
+      is_active: true,
+    });
+
+    category.changeDescription("New description");
+
+    expect(category.description).toBe("New description");
+  });
+
+  it("should be activate", () => {
+    const category = Category.create({
+      name: "Categ01",
+      description: "Description categ",
+      is_active: false,
+    });
+
+    category.activate();
+
+    expect(category.is_active).toBeTruthy();
+  });
+
+  it("should be deactivate", () => {
+    const category = Category.create({
+      name: "Categ01",
+      description: "Description categ",
+      is_active: true,
+    });
+
+    category.deactivate();
+
+    expect(category.is_active).toBeFalsy();
+  });
+
+  it("should be return toJson", () => {
+    const category = new Category({
+      name: "Category",
+      description: "Category description",
+      is_active: true,
+    });
+
+    const date = new Date();
+
+    expect(category.toJson()).toMatchObject({
+      category_id: undefined,
+      name: "Category",
+      description: "Category description",
+      is_active: true,
+      created_at: date,
+    });
+  });
 });
