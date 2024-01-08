@@ -1,3 +1,4 @@
+import { Uuid } from "../../../shared/domain/value-objects/uuid.vo";
 import { Category } from "../category.entity";
 
 describe("Category.entity Unit tests", () => {
@@ -103,11 +104,29 @@ describe("Category.entity Unit tests", () => {
     const date = new Date();
 
     expect(category.toJson()).toMatchObject({
-      category_id: undefined,
       name: "Category",
       description: "Category description",
       is_active: true,
       created_at: date,
+    });
+  });
+
+  describe("Category_id field", () => {
+    const arrange = [
+      { category_id: null },
+      { category_id: undefined },
+      { category_id: new Uuid() },
+    ];
+
+    test.each(arrange)("id = %j", ({ category_id }) => {
+      const category = new Category({
+        name: "Movie",
+        category_id: category_id as any,
+      });
+      expect(category.category_id).toBeInstanceOf(Uuid);
+      if (category_id instanceof Uuid) {
+        expect(category.category_id).toBe(category_id);
+      }
     });
   });
 });
