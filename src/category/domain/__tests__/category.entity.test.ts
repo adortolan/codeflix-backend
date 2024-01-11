@@ -2,6 +2,11 @@ import { Uuid } from "../../../shared/domain/value-objects/uuid.vo";
 import { Category } from "../category.entity";
 
 describe("Category.entity Unit tests", () => {
+  let validateSpy: any;
+  beforeEach(() => {
+    validateSpy = jest.spyOn(Category, "validate");
+  });
+
   test("should create a category with name", () => {
     const category = new Category({ name: "Category" });
 
@@ -56,6 +61,7 @@ describe("Category.entity Unit tests", () => {
     category.changeName("Categ03");
 
     expect(category.name).toBe("Categ03");
+    expect(validateSpy).toHaveBeenCalledTimes(2);
   });
 
   it("should be change description", () => {
@@ -68,6 +74,7 @@ describe("Category.entity Unit tests", () => {
     category.changeDescription("New description");
 
     expect(category.description).toBe("New description");
+    expect(validateSpy).toHaveBeenCalledTimes(2);
   });
 
   it("should be activate", () => {
