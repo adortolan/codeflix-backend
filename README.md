@@ -1,4 +1,4 @@
-Montagem do ambiente de desenvolvimento (Docker e IDE)
+* Montagem do ambiente de desenvolvimento (Docker e IDE)
 
 # Criar uma aplicação TypeScript (Core)
 
