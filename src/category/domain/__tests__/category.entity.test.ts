@@ -110,7 +110,7 @@ describe("Category.entity Unit tests", () => {
 
     const date = new Date();
 
-    expect(category.toJson()).toMatchObject({
+    expect(category.toJSON()).toMatchObject({
       name: "Category",
       description: "Category description",
       is_active: true,
